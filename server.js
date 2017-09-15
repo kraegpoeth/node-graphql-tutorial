@@ -1,4 +1,6 @@
-var { graphql, buildSchema } = require('graphql');
+var express = require('express');
+var graphqlHTTP = require('express-graphql');
+var { buildSchema } = require('graphql');
 
 var schema = buildSchema(`
   type Query {
@@ -12,6 +14,12 @@ var root = {
   },
 };
 
-graphql(schema, '{ hello }', root).then((response) => {
-  console.log(response)
-})
+var app = express();
+app.use('/graphiql', graphqlHTTP({
+  schema: schema,
+  rootValue: root,
+  graphiql: true
+}));
+
+app.listen(4000)
+console.log('gql server live on port localhost:4000/graphiql');
