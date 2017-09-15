@@ -1,0 +1,24 @@
+{
+  "name": "graphlql-tutorial",
+  "version": "1.0.0",
+  "description": "simple demo to hook up gql with node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/kraegpoeth/node-graphql-tutorial.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kraegpoeth/node-graphql-tutorial/issues"
+  },
+  "homepage": "https://github.com/kraegpoeth/node-graphql-tutorial#readme",
+  "dependencies": {
+    "express": "^4.15.4",
+    "express-graphql": "^0.6.11",
+    "graphql": "^0.11.3"
+  }
+}
