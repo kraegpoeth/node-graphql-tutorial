@@ -16,13 +16,19 @@ var schema = buildSchema(`
 
   type Query {
     getMessage(id: ID!): Message
+    ip: String
   }
 
   type Mutation {
     createMessage(input: MessageInput): Message
     updateMessage(id: ID!, input: MessageInput): Message
-  }
+  },
 `);
+
+function loggingMiddleware(req, res, next) {
+  console.log('ip: '+req.ip);
+  next();
+}
 
 class Message {
   constructor(id, {content, author}) {
@@ -37,6 +43,9 @@ var fakeDatabase = {};
 
 
 var root = {
+  ip: function(args, request){
+    return request.ip;
+  },
   getMessage: function ({id}) {
     if (!fakeDatabase[id]){
     throw new Error('no message exists with id ' + id);
@@ -60,6 +69,7 @@ var root = {
 }
 
 var app = express();
+app.use(loggingMiddleware);
 app.use('/graphql', graphqlHTTP({
   schema: schema,
   rootValue: root,
